@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1662592114 source:/home/adryane/estudos/c/cobrinha/main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+
