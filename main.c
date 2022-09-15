@@ -4,10 +4,6 @@
 #include <locale.h>
 
 #define TAM 10
-#define UP_ARROW    72
-#define LEFT_ARROW  75
-#define DOWN_ARROW  80
-#define RIGHT_ARROW 77
 
 void setRandomObstacle(char parts[TAM][TAM], int qtyObstacles);
 void clear(char parts[TAM][TAM]);
@@ -16,8 +12,7 @@ void setWorn(char parts[TAM][TAM]);
 
 int main()
 {
-    char Key =  getchar();
-    printf("%d\n", Key);
+    setlocale(LC_ALL, "");
 
     int qtyObstacles = 0;
 
