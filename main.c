@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
+#include <conio.h>
 
 #define TAM 10
 
 void setRandomObstacle(char parts[TAM][TAM], int qtyObstacles);
 void clear(char parts[TAM][TAM]);
 void table(char parts[TAM][TAM]);
-void setWorn(char parts[TAM][TAM]);
 
 int main()
 {
@@ -26,18 +26,64 @@ int main()
     char parts[TAM][TAM];
     clear(parts);
 
+    // Criar os obstáculos
     setRandomObstacle(parts, qtyObstacles);
     table(parts);
 
-    setWorn(parts);
+
+    // Coloca a minhoca na tabela
+    int x = 0, y= 0;
+
+    do
+    {
+        printf("Digite a LINHA para a posição em que a minhoca deve começar: ");
+        scanf("%d", &x);
+
+        printf("Digite a COLUNA para a posição em que a minhoca deve começar: ");
+        scanf("%d", &y);
+    }
+    while( parts[x][y] != ' ');
+
+    parts[x][y] = 'C';
+
     table(parts);
 
     int moviments = 0;
-    printf("Digite quantos movimentos a minhoca pode realizar: ");
+    printf("\nDigite quantos movimentos a minhoca pode realizar: ");
     scanf("%d", &moviments);
 
+    table(parts);
 
+    for(int i = 0; i < moviments; i++ )
+    {
+        char l = getch();
+        putch(l);
 
+        parts[x][y] = ' ';
+
+        switch(l)
+        {
+        case 'w': // pra cima
+            x--;
+            break;
+        case 's': // pra baixo
+            x++;
+            break;
+        case 'd': // pra direita
+            y++;
+            break;
+        case 'a': // pra esquerda
+            y--;
+            break;
+        default:
+            i--;
+            break;
+        }
+
+        parts[x][y] = 'C';
+        table(parts);
+        printf("[w] - cima | [s] - baixo | [a] - esquerda | [d] - direita\n");
+    }
 
     return 0;
 }
@@ -79,6 +125,7 @@ void clear(char parts[TAM][TAM])
 // Mostra tabuleiro
 void table(char parts[TAM][TAM])
 {
+    system("cls");
     printf("\n================= TABULEIRO =================\n\n");
 
     int firtLine = 0, lantLine = (TAM - 1);
@@ -100,27 +147,4 @@ void table(char parts[TAM][TAM])
         printf("\n");
         printf("   -----------------------------------------\n");
     };
-}
-
-// Coloca a minhoca no tabuleiro
-void setWorn(char parts[TAM][TAM])
-{
-    int line = 0, column= 0;
-
-    do
-    {
-        printf("Digite a LINHA para a posição em que a minhoca deve começar: ");
-        scanf("%d", &line);
-
-        printf("Digite a COLUNA para a posição em que a minhoca deve começar: ");
-        scanf("%d", &column);
-    }
-    while( parts[line][column] != ' ');
-
-    parts[line][column] = 'C';
-
-//    parts[line][( column - 1)] = '*';
-//    parts[line][( column - 2)] = '*';
-//    parts[line][( column - 3)] = '*';
-//    parts[line][( column - 4)] = 'O';
 }
